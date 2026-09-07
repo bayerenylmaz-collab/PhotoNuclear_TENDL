@@ -5,12 +5,13 @@ Kararlı bir hedef çekirdekten, fotonnükleer `(γ, xn yp)` tepkimeleriyle **45
 Kaynak referansı: [NuDat 3](https://www.nndc.bnl.gov/nudat3/).  
 Plan: [`PLAN.md`](PLAN.md) · Kolay kullanım: [`KULLANIM.md`](KULLANIM.md)
 
-## En kolay kullanım (Windows)
+## Kullanım İçin (Windows)
 
 1. Bu klasörü zip olarak gönderin / indirin  
 2. `run.bat` dosyasına çift tıklayın  
-3. Hedef (`197Au`) ve enerji (`44`) girin  
-4. `out\...\report.html` dosyasını tarayıcıda açın  
+3. Hedef örneğin 197Au ve enerji örneğin 44 girin  
+4. `out\...\report.html` dosyasını açın
+5. Süreç bittiğinde konsolda size haber verecek ve oluşan out dosyasına girip sonuçları görüntüleyebilirsiniz.
 
 Linux/macOS/WSL: `./run.sh`
 
