@@ -1,0 +1,330 @@
+{
+  "target": "63Cu",
+  "emax_mev": 25.0,
+  "n_products": 3,
+  "n_gamma_rows": 26,
+  "products": [
+    {
+      "target": "63Cu",
+      "product": "62Cu",
+      "z": 29,
+      "a": 62,
+      "n": 33,
+      "isomer": "",
+      "x_neutrons": 1,
+      "y_protons": 0,
+      "channel": "(γ,n)",
+      "eth_mev": 10.863643,
+      "excitation_kev": 0.0,
+      "half_life": "9.672 m",
+      "is_metastable": false,
+      "jp": "1+*",
+      "decay": "B+=100",
+      "mass_estimated": false
+    },
+    {
+      "target": "63Cu",
+      "product": "61Co",
+      "z": 27,
+      "a": 61,
+      "n": 34,
+      "isomer": "",
+      "x_neutrons": 0,
+      "y_protons": 2,
+      "channel": "(γ,2p)",
+      "eth_mev": 17.259631,
+      "excitation_kev": 0.0,
+      "half_life": "1.649 h",
+      "is_metastable": false,
+      "jp": "7/2-",
+      "decay": "B-=100",
+      "mass_estimated": false
+    },
+    {
+      "target": "63Cu",
+      "product": "61Cu",
+      "z": 29,
+      "a": 61,
+      "n": 32,
+      "isomer": "",
+      "x_neutrons": 2,
+      "y_protons": 0,
+      "channel": "(γ,2n)",
+      "eth_mev": 19.738441,
+      "excitation_kev": 0.0,
+      "half_life": "3.343 h",
+      "is_metastable": false,
+      "jp": "3/2-*",
+      "decay": "B+=100",
+      "mass_estimated": false
+    }
+  ],
+  "gammas": [
+    {
+      "product": "62Cu",
+      "energy_kev": 7.478,
+      "intensity": 0.4706969230296656,
+      "intensity_unc": "0.004706139925927787",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 1
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 1172.97,
+      "intensity": 0.342,
+      "intensity_unc": "0.016999999999999998",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 2
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 875.66,
+      "intensity": 0.14706,
+      "intensity_unc": "0.010011078862939797",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 3
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 8.296,
+      "intensity": 0.09809734323655113,
+      "intensity_unc": "0.0013888687980681005",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 4
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 2301.95,
+      "intensity": 0.042066,
+      "intensity_unc": "0.0029296731899650513",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 5
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 1128.82,
+      "intensity": 0.031806,
+      "intensity_unc": "0.0023288754797111846",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 6
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 0.874,
+      "intensity": 0.024181062582102033,
+      "intensity_unc": "0.0011542330022618259",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 7
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 3370.3,
+      "intensity": 0.0084132,
+      "intensity_unc": "0.0006357205990055694",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 8
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 2084.8,
+      "intensity": 0.004788,
+      "intensity_unc": "0.0010532426121269496",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 9
+    },
+    {
+      "product": "62Cu",
+      "energy_kev": 2097.6,
+      "intensity": 0.0028728,
+      "intensity_unc": "0.0004023907056580706",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "9.67 m",
+      "rank": 10
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 67.412,
+      "intensity": 84.672,
+      "intensity_unc": "0.384",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 1
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 917.5,
+      "intensity": 3.6162,
+      "intensity_unc": "0.2651077516784449",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 2
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 7.478,
+      "intensity": 2.5379100002887016,
+      "intensity_unc": "0.04616913107535926",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 3
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 850.0,
+      "intensity": 0.7938,
+      "intensity_unc": "0.0706517770477148",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 4
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 8.296,
+      "intensity": 0.5289225746353678,
+      "intensity_unc": "0.010986161231987888",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 5
+    },
+    {
+      "product": "61Co",
+      "energy_kev": 0.874,
+      "intensity": 0.1299240129603024,
+      "intensity_unc": "0.0064711010515619855",
+      "decay_mode": "B-",
+      "parent_energy_kev": 0.0,
+      "half_life": "1.649 h",
+      "rank": 6
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 282.956,
+      "intensity": 12.7,
+      "intensity_unc": "2",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 1
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 656.008,
+      "intensity": 10.4,
+      "intensity_unc": "1.6",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 2
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 7.478,
+      "intensity": 8.5,
+      "intensity_unc": "0.5",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 3
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 67.412,
+      "intensity": 4.0,
+      "intensity_unc": "0.6",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 4
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 1185.234,
+      "intensity": 3.6,
+      "intensity_unc": "0.6",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 5
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 373.05,
+      "intensity": 2.14,
+      "intensity_unc": "0.33",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 6
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 8.296,
+      "intensity": 1.77,
+      "intensity_unc": "0.11",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 7
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 588.605,
+      "intensity": 1.17,
+      "intensity_unc": "0.18",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 8
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 908.631,
+      "intensity": 1.09,
+      "intensity_unc": "0.17",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 9
+    },
+    {
+      "product": "61Cu",
+      "energy_kev": 0.874,
+      "intensity": 0.44,
+      "intensity_unc": "0.03",
+      "decay_mode": "EC+B+",
+      "parent_energy_kev": 0.0,
+      "half_life": "3.339 h",
+      "rank": 10
+    }
+  ],
+  "sources": {
+    "reference_ui": "https://www.nndc.bnl.gov/nudat3/",
+    "masses": "AME2020",
+    "half_lives_isomers": "NUBASE2020",
+    "decay_gammas": "IAEA LiveChart / ENSDF (NuDat-compatible)"
+  }
+}

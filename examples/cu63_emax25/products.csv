@@ -1,0 +1,4 @@
+target,product,z,a,n,isomer,x_neutrons,y_protons,channel,eth_mev,excitation_kev,half_life,is_metastable,jp,decay,mass_estimated
+63Cu,62Cu,29,62,33,,1,0,"(γ,n)",10.863643,0.0,9.672 m,False,1+*,B+=100,False
+63Cu,61Co,27,61,34,,0,2,"(γ,2p)",17.259631,0.0,1.649 h,False,7/2-,B-=100,False
+63Cu,61Cu,29,61,32,,2,0,"(γ,2n)",19.738441,0.0,3.343 h,False,3/2-*,B+=100,False

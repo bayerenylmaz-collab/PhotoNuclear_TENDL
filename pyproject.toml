@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photonuclear-catalog"
+version = "0.2.5"
+description = "Catalog radioactive (γ,xn yp) products and top decay gammas from a stable target"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "bayerenylmaz-collab" }]
+dependencies = [
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[project.scripts]
+photonuclear-catalog = "photonuclear_catalog.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+photonuclear_catalog = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

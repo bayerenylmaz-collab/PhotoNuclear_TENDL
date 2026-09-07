@@ -1,0 +1,5 @@
+target,product,z,a,n,isomer,x_neutrons,y_protons,channel,eth_mev,excitation_kev,half_life,is_metastable,jp,decay,mass_estimated
+208Pb,207Tl,81,207,126,,0,1,"(γ,p)",8.003054,0.0,4.77 m,False,1/2+*,B-=100,False
+208Pb,207Pbm,82,207,125,m,1,0,"(γ,n)",9.001225,1633.356,806 ms,True,13/2+,IT=100,False
+208Pb,207Tlm,81,207,126,m,0,1,"(γ,p)",9.351234,1348.18,1.33 s,True,11/2-,IT~100;B- ?,False
+208Pb,206Tl,81,206,125,,1,1,"(γ,pn)",14.855515,0.0,4.202 m,False,0-*,B-=100,False
