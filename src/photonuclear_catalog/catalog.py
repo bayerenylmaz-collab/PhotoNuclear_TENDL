@@ -14,7 +14,6 @@ from photonuclear_catalog.reactions import (
     DEFAULT_SIGMA_NEGLIGIBLE_MB,
     Product,
     enumerate_products,
-    filter_by_emax,
 )
 from photonuclear_catalog.report import write_reports
 from photonuclear_catalog.tendl import TendlPhotonuclear
@@ -174,19 +173,62 @@ def build_catalog(
     )
 
 
-def filter_catalog(result: CatalogResult, emax_mev: float) -> CatalogResult:
-    products = filter_by_emax(result.products, emax_mev)
-    allowed = {(p.z, p.a, p.isomer) for p in products}
+def filter_catalog(
+    result: CatalogResult,
+    emax_mev: float,
+    *,
+    masses: MassTable | None = None,
+    nubase: NubaseTable | None = None,
+    tendl_cache_dir: Path | None = None,
+    sigma_negligible_mb: float | None = None,
+) -> CatalogResult:
+    """Narrow an existing catalog to a lower E_max.
+
+    Product selection is redone at ``emax_mev`` so TENDL σ windows and
+    viability classes match the new limit (not the original broader run).
+    Decay-gamma rows from the prior result are kept for residuals that remain.
+    """
+    if emax_mev <= 0:
+        raise ValueError("emax must be positive")
+    if emax_mev > 45.0:
+        raise ValueError("emax must be <= 45 MeV for this task")
+
+    meta = dict(result.meta or {})
+    neg = (
+        DEFAULT_SIGMA_NEGLIGIBLE_MB
+        if sigma_negligible_mb is None
+        else sigma_negligible_mb
+    )
+    if sigma_negligible_mb is None and "sigma_negligible_mb" in meta:
+        neg = float(meta["sigma_negligible_mb"])
+
+    rebuilt = build_catalog(
+        result.target,
+        emax_mev=emax_mev,
+        fetch_gammas=False,
+        masses=masses,
+        nubase=nubase,
+        min_gamma_kev=result.min_gamma_kev,
+        gamma_limit=result.gamma_limit,
+        use_tendl=result.use_tendl,
+        tendl_cache_dir=tendl_cache_dir,
+        exclude_xrays=bool(meta.get("exclude_xrays", True)),
+        include_stable_products=bool(meta.get("include_stable_products", True)),
+        sigma_negligible_mb=neg,
+    )
+    allowed = {(p.z, p.a, p.isomer) for p in rebuilt.products}
     gammas = [g for g in result.gammas if _gamma_key(g.product) in allowed]
+    out_meta = dict(rebuilt.meta or {})
+    out_meta["filtered_from_emax_mev"] = result.emax_mev
     return CatalogResult(
         target=result.target,
         emax_mev=emax_mev,
-        products=products,
+        products=rebuilt.products,
         gammas=gammas,
         min_gamma_kev=result.min_gamma_kev,
         gamma_limit=result.gamma_limit,
         use_tendl=result.use_tendl,
-        meta=result.meta,
+        meta=out_meta,
     )
 
 

@@ -30,6 +30,14 @@ def test_parse_nuclide_forms() -> None:
     assert parse_nuclide("207Pbm").symbol == "207Pbm"
     assert parse_nuclide("207Pbm").isomer == "m"
     assert parse_nuclide("206Pbn").isomer == "n"
+    # Catalog product ids use m1/m2 display suffixes (filter_catalog parses these).
+    assert parse_nuclide("207Pbm1").z == 82
+    assert parse_nuclide("207Pbm1").a == 207
+    assert parse_nuclide("207Pbm1").isomer == "m"
+    assert parse_nuclide("196Aum1").isomer == "m"
+    assert parse_nuclide("195Ptm1").z == 78 and parse_nuclide("195Ptm1").isomer == "m"
+    assert parse_nuclide("152Eum3").isomer == "p"
+    assert parse_nuclide("192Irm1").isomer == "m"
     # Two-letter symbols must not be eaten by prefix-isomer "n"/"m".
     assert parse_nuclide("59Ni").z == 28 and parse_nuclide("59Ni").isomer == ""
     assert parse_nuclide("93Nb").z == 41 and parse_nuclide("93Nb").isomer == ""
@@ -204,4 +212,91 @@ def test_free_nucleon_mt_map() -> None:
     # Unmapped / clustered-equivalent balances stay unmapped.
     assert free_nucleon_mt(0, 0) is None
     assert free_nucleon_mt(9, 9) is None
+
+
+def test_filter_catalog_accepts_m1_product_ids(
+    masses: MassTable, nubase: NubaseTable
+) -> None:
+    """Filtering must parse catalog ids like 207Pbm1 (not crash)."""
+    from photonuclear_catalog.catalog import CatalogResult, filter_catalog
+    from photonuclear_catalog.gammas import GammaLine
+
+    products = enumerate_products(
+        parse_nuclide("208Pb"), masses, nubase, emax_mev=20.0, include_stable_products=True
+    )
+    result = CatalogResult(
+        target="208Pb",
+        emax_mev=20.0,
+        products=products,
+        gammas=[
+            GammaLine(
+                product="207Pbm1",
+                energy_kev=569.698,
+                intensity=97.9,
+                intensity_unc=None,
+                decay_mode="IT",
+                parent_energy_kev=1633.356,
+                half_life="806 ms",
+                rank=1,
+            )
+        ],
+        use_tendl=False,
+        meta={"include_stable_products": True, "exclude_xrays": True},
+    )
+    filtered = filter_catalog(result, 10.0, masses=masses, nubase=nubase)
+    assert filtered.emax_mev == 10.0
+    assert all(p.eth_mev <= 10.0 for p in filtered.products)
+    assert filtered.meta.get("filtered_from_emax_mev") == 20.0
+    # 207Pbm Eth is ~9 MeV-class; gamma row should survive when isomer remains.
+    remaining = {(p.z, p.a, p.isomer) for p in filtered.products}
+    if (82, 207, "m") in remaining:
+        assert any(g.product == "207Pbm1" for g in filtered.gammas)
+
+
+def test_filter_catalog_refreshes_tendl_to_new_emax(
+    masses: MassTable, nubase: NubaseTable
+) -> None:
+    """Filter 44→20 MeV must recompute σ (not keep the 44 MeV window)."""
+    from photonuclear_catalog.catalog import build_catalog, filter_catalog
+
+    cache = Path("data/tendl_cache")
+    wide = build_catalog(
+        "197Au",
+        emax_mev=44.0,
+        fetch_gammas=False,
+        masses=masses,
+        nubase=nubase,
+        use_tendl=True,
+        tendl_cache_dir=cache,
+    )
+    direct = build_catalog(
+        "197Au",
+        emax_mev=20.0,
+        fetch_gammas=False,
+        masses=masses,
+        nubase=nubase,
+        use_tendl=True,
+        tendl_cache_dir=cache,
+    )
+    filtered = filter_catalog(
+        wide, 20.0, masses=masses, nubase=nubase, tendl_cache_dir=cache
+    )
+
+    def _ptm(rows):
+        return [p for p in rows if p.product == "195Ptm1" and p.channel == "(γ,pn)"]
+
+    wide_pt = _ptm(wide.products)
+    direct_pt = _ptm(direct.products)
+    filt_pt = _ptm(filtered.products)
+    assert wide_pt and direct_pt and filt_pt
+
+    # Stale-bug signature: filtered would keep the wide σ (~0.23 mb) instead of ~3e-5.
+    assert wide_pt[0].sigma_max_mb is not None
+    assert direct_pt[0].sigma_max_mb is not None
+    assert abs(wide_pt[0].sigma_max_mb - direct_pt[0].sigma_max_mb) > 1e-4
+
+    assert filt_pt[0].sigma_max_mb == direct_pt[0].sigma_max_mb
+    assert filt_pt[0].e_at_sigma_max_mev == direct_pt[0].e_at_sigma_max_mev
+    assert filt_pt[0].viability == direct_pt[0].viability
+    assert filtered.emax_mev == 20.0
 

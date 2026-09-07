@@ -129,12 +129,13 @@ _ELEMENT_TO_Z: dict[str, int] = {
 
 _Z_TO_ELEMENT = {z: el for el, z in _ELEMENT_TO_Z.items() if el != "n"}
 
-# Supports: 208Pb, Pb-208, 99mTc, 207Pbm, Tc99m, 180mTa, 192Irm1
+# Supports: 208Pb, Pb-208, 99mTc, 207Pbm, 207Pbm1, Tc99m, 180mTa, 192Irm1
+# body1 must allow isomer digits (m1/m2/…) — catalog product ids use 207Pbm1.
 _NUCLIDE_RE = re.compile(
     r"""
     ^\s*
     (?:
-        (?P<a1>\d{1,3})\s*[-_]?\s*(?P<body1>[A-Za-z]{1,5})
+        (?P<a1>\d{1,3})\s*[-_]?\s*(?P<body1>[A-Za-z]{1,3}(?:m\d*|[npq])?)
       | (?P<body2>[A-Za-z]{1,3})\s*[-_]?\s*(?P<a2>\d{1,3})\s*(?P<meta2>m\d*|n|p|q)?
     )
     \s*$
@@ -244,12 +245,13 @@ def _normalize_isomer(tag: str) -> str:
 
 
 def parse_nuclide(text: str) -> Nuclide:
-    """Parse forms like 208Pb, Pb-208, 99mTc, 207Pbm, Tc99m, 192Irm1."""
+    """Parse forms like 208Pb, Pb-208, 99mTc, 207Pbm, 207Pbm1, Tc99m, 192Irm1."""
     raw = text.strip()
     m = _NUCLIDE_RE.match(raw)
     if not m:
         raise ValueError(
-            f"Cannot parse nuclide {text!r}. Use forms like 208Pb, Pb-208, 99mTc."
+            f"Cannot parse nuclide {text!r}. "
+            "Use forms like 208Pb, Pb-208, 99mTc, 207Pbm1."
         )
     if m.group("a1"):
         a = int(m.group("a1"))
